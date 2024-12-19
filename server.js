@@ -4,6 +4,7 @@ const { connection } = require("./db");
 const userRouter = require("./modules/user/user.routes");
 const cardRouter = require("./modules/card/card.routes");
 const emailRouter = require("./modules/emailSignture/emailRouter");
+const linkRouter = require("./modules/socialLink/link.routes");
 require("dotenv").config();
 const { planExpiry } = require("./notifications/planExpiry");
 const { expiryDate } = require("./notifications/expiryDate");
@@ -18,6 +19,7 @@ app.use(express.static("uploads"));
 app.use("/user", userRouter);
 app.use("/card", cardRouter);
 app.use("/email", emailRouter);
+app.use("/link",linkRouter)
 
 
 

@@ -47,11 +47,18 @@ const Card = require("./cardSchema");
 
 exports.addCard = async (req, res) => {
   try {
-    const profileimg = req.files["profileimg"]
-      ? req.files["profileimg"][0].path
-      : "";
-    const coverimg = req.files["coverimg"] ? req.files["coverimg"][0].path : "";
-    const logoimg = req.files["logoimg"] ? req.files["logoimg"][0].path : "";
+    const profileimg =
+      req.files && req.files["profileimg"]
+        ? req.files["profileimg"][0].path
+        : undefined;
+    const coverimg =
+      req.files && req.files["coverimg"]
+        ? req.files["coverimg"][0].path
+        : undefined;
+    const logoimg =
+      req.files && req.files["logoimg"]
+        ? req.files["logoimg"][0].path
+        : undefined;
 
     const profileStyle = req.body.profileStyle === "circle" ? true : false;
     const userId = req.userID;
@@ -59,11 +66,12 @@ exports.addCard = async (req, res) => {
     const data = new Card({
       ...req.body,
       userId,
-      profileimg,
-      coverimg,
-      logoimg,
       style: profileStyle,
     });
+    if (profileimg) data.profileimg = profileimg;
+    if (coverimg) data.coverimg = coverimg;
+    if (logoimg) data.logoimg = logoimg;
+
     await data.save();
     await User.findByIdAndUpdate(userId, { card: data._id });
     res.status(201).json({
