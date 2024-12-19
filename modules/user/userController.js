@@ -78,7 +78,27 @@ exports.loginUser = async (req, res) => {
     res.status(500).json({ message: "Error logging in" });
   }
 };
+exports.getUserDetails = async (req, res) => {
+  const userID = req.userID;
 
+  try {
+    const user = await User.findById(userID)
+      .populate("card")
+      .populate("socialLinks");
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json({
+      message: "User content fetched successfully",
+      user,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error fetching user content" });
+  }
+};
 exports.getloginUser = async (req, res) => {
   try {
     const userData = req.user;

@@ -4,6 +4,7 @@ const { connection } = require("./db");
 const userRouter = require("./modules/user/user.routes");
 const cardRouter = require("./modules/card/card.routes");
 const emailRouter = require("./modules/emailSignture/emailRouter");
+const linkRouter = require("./modules/socialLink/link.routes");
 require("dotenv").config();
 const app = express();
 
@@ -14,6 +15,7 @@ app.use(express.static("uploads"));
 app.use("/user", userRouter);
 app.use("/card", cardRouter);
 app.use("/email", emailRouter);
+app.use("/link",linkRouter)
 
 app.listen(process.env.PORT, async () => {
   console.log(`Server is Running on ${process.env.PORT} Port`);

@@ -7,6 +7,7 @@ const userRouter = express.Router();
 userRouter
   .post("/signup", userController.addUser)
   .post("/signin", userController.loginUser)
+  .get("/userdetails", authMiddleware, userController.getUserDetails)
   .get("/loginuser", authMiddleware, userController.getloginUser)
   .patch("/edituser", authMiddleware, userController.editUser);
 

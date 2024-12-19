@@ -12,6 +12,7 @@ const userSchema = new mongoose.Schema(
       required: true,
     },
     card: { type: mongoose.Schema.Types.ObjectId, ref: "Card" },
+    socialLinks: [{ type: mongoose.Schema.Types.ObjectId, ref: "SocialLink" }],
   },
   {
     timestamps: true,
