@@ -12,10 +12,16 @@ const userSchema = new mongoose.Schema(
       required: true,
     },
     card: { type: mongoose.Schema.Types.ObjectId, ref: "Card" },
+
+    planExpired: { type: String },
+    notifications: { type: Array },
+
     socialLinks: [{ type: mongoose.Schema.Types.ObjectId, ref: "SocialLink" }],
+
   },
   {
     timestamps: true,
+    versionKey: false,
   }
 );
 

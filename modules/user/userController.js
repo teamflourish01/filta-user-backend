@@ -1,6 +1,7 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("./userSchema");
+const { expiryDate } = require("../../notifications/expiryDate");
 
 exports.addUser = async (req, res) => {
   const { email, password } = req.body;
@@ -143,7 +144,7 @@ exports.editUser = async (req, res) => {
     if (!updatedUser) {
       return res.status(404).json({ message: "User not found" });
     }
-    
+
     const token = jwt.sign(
       { userId: updatedUser._id, email: updatedUser.email },
       process.env.JWT_SECRET_KEY,
