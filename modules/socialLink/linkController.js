@@ -92,3 +92,29 @@ exports.getLink = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+exports.deleteLink = async (req, res) => {
+  const { linkId } = req.params;
+  const userId = req.userID;
+
+  try {
+    const linkToDelete = await SocialLink.findOne({ _id: linkId, userId });
+
+    if (!linkToDelete) {
+      return res.status(404).json({ message: "Social link not found." });
+    }
+
+    await User.findByIdAndUpdate(userId, {
+      $pull: { socialLinks: linkId },
+    });
+
+    await SocialLink.deleteOne({ _id: linkId });
+
+    res.status(200).json({ message: "Social link deleted successfully." });
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ message: "Internal server error", error: error.message });
+  }
+};

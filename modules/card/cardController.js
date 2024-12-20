@@ -49,15 +49,15 @@ exports.addCard = async (req, res) => {
   try {
     const profileimg =
       req.files && req.files["profileimg"]
-        ? req.files["profileimg"][0].path
+        ? req.files["profileimg"][0].filename
         : undefined;
     const coverimg =
       req.files && req.files["coverimg"]
-        ? req.files["coverimg"][0].path
+        ? req.files["coverimg"][0].filename
         : undefined;
     const logoimg =
       req.files && req.files["logoimg"]
-        ? req.files["logoimg"][0].path
+        ? req.files["logoimg"][0].filename
         : undefined;
 
     const profileStyle = req.body.profileStyle === "circle" ? true : false;
@@ -85,7 +85,7 @@ exports.addCard = async (req, res) => {
 };
 // Helper function to handle single image
 function handleSingleImage(newFile, currentImage) {
-  return newFile?.[0]?.path || currentImage;
+  return newFile?.[0]?.filename || currentImage;
 }
 exports.editCard = async (req, res) => {
   try {
@@ -125,7 +125,7 @@ exports.editCard = async (req, res) => {
 
     res
       .status(201)
-      .json({ msg: "Data updated successfully", data: updatedData });
+      .json({ msg: "Card updated successfully", data: updatedData });
   } catch (error) {
     res.status(500).json({ error: "Data not updated", message: error.message });
   }
