@@ -85,7 +85,8 @@ exports.getUserDetails = async (req, res) => {
   try {
     const user = await User.findById(userID)
       .populate("card")
-      .populate("socialLinks");
+      .populate("socialLinks")
+      .populate("voiceMessage");
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });

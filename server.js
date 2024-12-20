@@ -8,6 +8,7 @@ const linkRouter = require("./modules/socialLink/link.routes");
 require("dotenv").config();
 const { planExpiry } = require("./notifications/planExpiry");
 const { expiryDate } = require("./notifications/expiryDate");
+const voiceRouter = require("./modules/voice/voice.routes");
 
 const app = express();
 
@@ -20,7 +21,7 @@ app.use("/user", userRouter);
 app.use("/card", cardRouter);
 app.use("/email", emailRouter);
 app.use("/link",linkRouter)
-
+app.use("/voice",voiceRouter)
 
 
 

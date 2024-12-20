@@ -17,7 +17,9 @@ const userSchema = new mongoose.Schema(
     notifications: { type: Array },
 
     socialLinks: [{ type: mongoose.Schema.Types.ObjectId, ref: "SocialLink" }],
-
+    voiceMessage: [
+      { type: mongoose.Schema.Types.ObjectId, ref: "VoiceMessage" },
+    ],
   },
   {
     timestamps: true,

@@ -6,6 +6,7 @@ const linkRouter = express.Router();
 
 linkRouter
   .get("/link", authMiddleware, linkController.getLink)
-  .post("/addlink", authMiddleware, linkController.addLink);
+  .post("/addlink", authMiddleware, linkController.addLink)
+  .delete("/deletelink/:linkId", authMiddleware, linkController.deleteLink);
 
 module.exports = linkRouter;
