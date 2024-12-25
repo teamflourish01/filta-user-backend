@@ -18,7 +18,6 @@ const cardSchema = new mongoose.Schema(
     style: { type: Boolean, default: true },
     coverimg: { type: String },
     logoimg: { type: String },
-    
   },
   { timestamps: true }
 );

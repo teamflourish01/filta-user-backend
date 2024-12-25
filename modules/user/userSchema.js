@@ -20,6 +20,10 @@ const userSchema = new mongoose.Schema(
     voiceMessage: [
       { type: mongoose.Schema.Types.ObjectId, ref: "VoiceMessage" },
     ],
+    about: { type: mongoose.Schema.Types.ObjectId, ref: "About" },
+    documents: [
+      { type: mongoose.Schema.Types.ObjectId, ref: "Document" },
+    ],
   },
   {
     timestamps: true,

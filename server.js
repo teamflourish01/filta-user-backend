@@ -9,6 +9,8 @@ require("dotenv").config();
 const { planExpiry } = require("./notifications/planExpiry");
 const { expiryDate } = require("./notifications/expiryDate");
 const voiceRouter = require("./modules/voice/voice.routes");
+const aboutRouter = require("./modules/about/about.routes");
+const docRouter = require("./modules/documents/doc.routes");
 
 const app = express();
 
@@ -20,11 +22,10 @@ app.use(express.static("uploads"));
 app.use("/user", userRouter);
 app.use("/card", cardRouter);
 app.use("/email", emailRouter);
-app.use("/link",linkRouter)
-app.use("/voice",voiceRouter)
-
-
-
+app.use("/link", linkRouter);
+app.use("/voice", voiceRouter);
+app.use("/about", aboutRouter);
+app.use("/doc", docRouter);
 
 
 app.listen(process.env.PORT, async () => {
