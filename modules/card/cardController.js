@@ -46,6 +46,8 @@ const Card = require("./cardSchema");
 // };
 
 exports.addCard = async (req, res) => {
+  console.log("body", req.body);
+
   try {
     const profileimg =
       req.files && req.files["profileimg"]
@@ -71,6 +73,7 @@ exports.addCard = async (req, res) => {
     if (profileimg) data.profileimg = profileimg;
     if (coverimg) data.coverimg = coverimg;
     if (logoimg) data.logoimg = logoimg;
+    console.log("data", data);
 
     await data.save();
     await User.findByIdAndUpdate(userId, { card: data._id });
@@ -84,17 +87,26 @@ exports.addCard = async (req, res) => {
   }
 };
 // Helper function to handle single image
+
 function handleSingleImage(newFile, currentImage) {
   return newFile?.[0]?.filename || currentImage;
+}
+
+function handleMultipleImage(newFile, currentVideos) {
+  let newvideos = newFile.map((e) => e?.path);
+  return [...currentVideos, ...newvideos];
 }
 exports.editCard = async (req, res) => {
   try {
     const userId = req.userID;
-
     const existingData = await Card.findOne({ userId });
     if (!existingData) {
       return res.status(404).json({ error: "Card not found" });
     }
+
+    // handle Multiple Image
+
+    // const multimedia = handleMultipleImage(req?.files?.multimedia ,existingData.multimedia);
 
     // Handle single image (e.g., 'img' field)
     const profileimg = handleSingleImage(
@@ -115,9 +127,8 @@ exports.editCard = async (req, res) => {
       profileimg,
       coverimg,
       logoimg,
-      style: profileStyle,
+      style: profileStyle,      
     };
-
     // Update the data in the database
     const updatedData = await Card.findOneAndUpdate({ userId }, updatedFields, {
       new: true,

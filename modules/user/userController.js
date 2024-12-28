@@ -67,7 +67,10 @@ exports.loginUser = async (req, res) => {
     const token = jwt.sign(
       { userId: user._id, email: user.email },
       process.env.JWT_SECRET_KEY,
+
+
       { expiresIn: "30d" }
+
     );
 
     res.status(200).json({
@@ -86,6 +89,9 @@ exports.getUserDetails = async (req, res) => {
     const user = await User.findById(userID)
       .populate("card")
       .populate("socialLinks")
+
+      .populate("multimedia");
+
       .populate("voiceMessage")
       .populate("about")
       .populate("documents")
