@@ -22,6 +22,7 @@ const nfcStandardRouter = require("./modules/NFC Standard Card/nfcStandard.route
 const voiceRouter = require("./modules/voice/voice.routes");
 const aboutRouter = require("./modules/about/about.routes");
 const docRouter = require("./modules/documents/doc.routes");
+const contactFormRouter = require("./modules/contactForm/contact.routes");
 
 
 const app = express();
@@ -53,6 +54,8 @@ app.use("/nfc-standard",nfcStandardRouter)
 app.use("/voice", voiceRouter);
 app.use("/about", aboutRouter);
 app.use("/doc", docRouter);
+app.use("/email", contactFormRouter);
+
 
 
 

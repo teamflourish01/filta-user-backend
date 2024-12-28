@@ -94,7 +94,8 @@ exports.getUserDetails = async (req, res) => {
 
       .populate("voiceMessage")
       .populate("about")
-      .populate("documents");
+      .populate("documents")
+      .populate("myLeads");
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
