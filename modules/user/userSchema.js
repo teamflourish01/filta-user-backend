@@ -21,9 +21,8 @@ const userSchema = new mongoose.Schema(
       { type: mongoose.Schema.Types.ObjectId, ref: "VoiceMessage" },
     ],
     about: { type: mongoose.Schema.Types.ObjectId, ref: "About" },
-    documents: [
-      { type: mongoose.Schema.Types.ObjectId, ref: "Document" },
-    ],
+    documents: [{ type: mongoose.Schema.Types.ObjectId, ref: "Document" }],
+    myLeads: [{ type: mongoose.Schema.Types.ObjectId, ref: "Contactform" }],
   },
   {
     timestamps: true,

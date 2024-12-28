@@ -11,6 +11,7 @@ const { expiryDate } = require("./notifications/expiryDate");
 const voiceRouter = require("./modules/voice/voice.routes");
 const aboutRouter = require("./modules/about/about.routes");
 const docRouter = require("./modules/documents/doc.routes");
+const contactFormRouter = require("./modules/contactForm/contact.routes");
 
 const app = express();
 
@@ -26,6 +27,8 @@ app.use("/link", linkRouter);
 app.use("/voice", voiceRouter);
 app.use("/about", aboutRouter);
 app.use("/doc", docRouter);
+app.use("/email", contactFormRouter);
+
 
 
 app.listen(process.env.PORT, async () => {

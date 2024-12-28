@@ -29,6 +29,12 @@ docRouter
     authMiddleware,
     docController.addDoc
   )
-  .delete("/deletedoc/:linkId", authMiddleware, docController.deleteDoc);
+  .delete("/deletedoc/:linkId", authMiddleware, docController.deleteDoc)
+  .patch(
+    "/update/:docId",
+    upload.single("document"),
+    authMiddleware,
+    docController.editDoc
+  );
 
 module.exports = docRouter;
