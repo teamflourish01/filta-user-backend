@@ -15,7 +15,17 @@ const userSchema = new mongoose.Schema(
     planExpired: { type: String },
     notifications: { type: Array },
     socialLinks: [{ type: mongoose.Schema.Types.ObjectId, ref: "SocialLink" }],
+
     multimedia: [{ type: mongoose.Schema.Types.ObjectId, ref: "MultiMedia" }],
+
+    voiceMessage: [
+      { type: mongoose.Schema.Types.ObjectId, ref: "VoiceMessage" },
+    ],
+    about: { type: mongoose.Schema.Types.ObjectId, ref: "About" },
+    documents: [
+      { type: mongoose.Schema.Types.ObjectId, ref: "Document" },
+    ],
+
   },
   {
     timestamps: true,

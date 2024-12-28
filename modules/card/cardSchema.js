@@ -18,6 +18,7 @@ const cardSchema = new mongoose.Schema(
     style: { type: Boolean, default: true },
     coverimg: { type: String },
     logoimg: { type: String },
+
     design: {
         card_color: {
           primary_color: { type: String, default: "#000000" },
@@ -35,6 +36,7 @@ const cardSchema = new mongoose.Schema(
         },
     },
   
+
   },
   { timestamps: true }
 );
