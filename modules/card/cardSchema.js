@@ -18,7 +18,23 @@ const cardSchema = new mongoose.Schema(
     style: { type: Boolean, default: true },
     coverimg: { type: String },
     logoimg: { type: String },
-    
+    design: {
+        card_color: {
+          primary_color: { type: String, default: "#000000" },
+          secondary_color: { type: String, default: "#000000" },
+          neutral_color: { type: String, default: "#000000" },
+        },
+        font_style: {
+          font_family: { type: String, default: "popins" },
+          primary_text_color: { type: String, default: "#000000" },
+          secondary_text_color: { type: String, default: "#000000" },
+        },
+        theme_color: {
+          type: String,
+          default: "#000000",
+        },
+    },
+  
   },
   { timestamps: true }
 );

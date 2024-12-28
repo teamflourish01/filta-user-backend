@@ -24,6 +24,7 @@ const uploadFields = upload.fields([
   { name: "profileimg", maxCount: 1 },
   { name: "coverimg", maxCount: 1 },
   { name: "logoimg", maxCount: 1 },
+  {name:"multimedia"}
 ]);
 
 cardRouter

@@ -67,7 +67,7 @@ exports.loginUser = async (req, res) => {
     const token = jwt.sign(
       { userId: user._id, email: user.email },
       process.env.JWT_SECRET_KEY,
-      { expiresIn: "1h" }
+      { expiresIn: "12h" }
     );
 
     res.status(200).json({
@@ -85,8 +85,9 @@ exports.getUserDetails = async (req, res) => {
   try {
     const user = await User.findById(userID)
       .populate("card")
-      .populate("socialLinks");
-
+      .populate("socialLinks")
+      .populate("multimedia");
+      
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
