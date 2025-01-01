@@ -90,14 +90,21 @@ exports.getUserDetails = async (req, res) => {
 
       .populate("multimedia")
 
+
       .populate("voiceMessage")
       .populate("about")
       .populate("documents")
       .populate("myLeads")
+
+      .populate("cta")
+      .populate("teamMember")
+      .populate("socialProof");
+
       .populate("photos")
-      .populate("multimedia")
+      
       .populate("address")
       .populate("timeoffer");
+
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });

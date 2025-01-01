@@ -1,9 +1,15 @@
+const User = require("../user/userSchema");
 const ctaModel = require("./ctaSchema");
 
 exports.addCta=async(req,res)=>{
     try {
         let userId=req.userID
+        let existingData=await ctaModel.findOne({userId})
         let data=await ctaModel.findOneAndUpdate({userId},{...req.body,userId},{new:true,upsert:true})
+        if(!existingData){
+            await User.findByIdAndUpdate(userId,{$push:{cta:data._id}})
+        }
+
         res.status(200).send({
             msg:"Data updated successfully",
             data

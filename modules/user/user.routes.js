@@ -11,7 +11,7 @@ userRouter
 
   .get("/loginuser", authMiddleware,expiryMiddleware ,userController.getloginUser)
 
-  .get("/userdetails", authMiddleware, userController.getUserDetails)
+  .get("/userdetails", authMiddleware,expiryMiddleware, userController.getUserDetails)
 
   .patch("/edituser", authMiddleware, userController.editUser);
 
