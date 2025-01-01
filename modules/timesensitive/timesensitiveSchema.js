@@ -7,7 +7,7 @@ const tsOfferSchema = new mongoose.Schema(
       required: true,
     },
     image: {
-      type: [],
+      type: Array,
     },
   },
   {

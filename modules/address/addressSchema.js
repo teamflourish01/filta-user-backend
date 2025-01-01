@@ -8,9 +8,11 @@ const addressSchema = new mongoose.Schema(
     },
     title: {
       type: String,
+      default: "",
     },
     address: {
       type: String,
+      default: "",
     },
   },
   {

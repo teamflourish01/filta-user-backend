@@ -23,7 +23,9 @@ const voiceRouter = require("./modules/voice/voice.routes");
 const aboutRouter = require("./modules/about/about.routes");
 const docRouter = require("./modules/documents/doc.routes");
 const contactFormRouter = require("./modules/contactForm/contact.routes");
-
+const {
+  tsOffferRouter,
+} = require("./modules/timesensitive/timesensitive.routes");
 
 const app = express();
 
@@ -36,28 +38,22 @@ app.use("/user", userRouter);
 app.use("/card", cardRouter);
 app.use("/email", emailRouter);
 
-app.use("/link",linkRouter)
-app.use("/multimedia",multiMediaRouter)
-app.use("/cta",ctaRouter)
-app.use("/team",teamRouter)
-app.use("/automated",autoRouter)
-app.use("/social",spRouter)
-app.use("/photo",photoRouter)
-app.use("/gallery",pgRouter)
-app.use("/address",addressRouter)
-app.use("/nfc-standard",nfcStandardRouter)
-
-
-
-
+app.use("/link", linkRouter);
+app.use("/multimedia", multiMediaRouter);
+app.use("/cta", ctaRouter);
+app.use("/team", teamRouter);
+app.use("/automated", autoRouter);
+app.use("/social", spRouter);
+app.use("/photo", photoRouter);
+app.use("/gallery", pgRouter);
+app.use("/address", addressRouter);
+app.use("/nfc-standard", nfcStandardRouter);
+app.use("/timesoffer", tsOffferRouter);
 
 app.use("/voice", voiceRouter);
 app.use("/about", aboutRouter);
 app.use("/doc", docRouter);
 app.use("/email", contactFormRouter);
-
-
-
 
 app.listen(process.env.PORT, async () => {
   console.log(`Server is Running on ${process.env.PORT} Port`);
