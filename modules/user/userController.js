@@ -68,9 +68,7 @@ exports.loginUser = async (req, res) => {
       { userId: user._id, email: user.email },
       process.env.JWT_SECRET_KEY,
 
-
       { expiresIn: "30d" }
-
     );
 
     res.status(200).json({
@@ -90,12 +88,16 @@ exports.getUserDetails = async (req, res) => {
       .populate("card")
       .populate("socialLinks")
 
-      .populate("multimedia");
+      .populate("multimedia")
 
       .populate("voiceMessage")
       .populate("about")
       .populate("documents")
-      .populate("myLeads");
+      .populate("myLeads")
+      .populate("photos")
+      .populate("multimedia")
+      .populate("address")
+      .populate("timeoffer");
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
