@@ -7,12 +7,31 @@ const User = require("../user/userSchema");
 
 // login Email- Message Add-Edit Api
 exports.addEmailMessage = async (req, res) => {
-  const { loginemail, loginmessage } = req.body;
+  const { loginemail, loginmessage, name, email, number, message } = req.body;
   const userId = req.userID;
   try {
+    const existingData = await Loginemail.findOne({ userId });
+    const updateData = {
+      loginemail,
+      loginmessage,
+      name:
+        name !== undefined ? !existingData?.name : existingData?.name ?? true,
+      email:
+        email !== undefined
+          ? !existingData?.email
+          : existingData?.email ?? true,
+      number:
+        number !== undefined
+          ? !existingData?.number
+          : existingData?.number ?? true,
+      message:
+        message !== undefined
+          ? !existingData?.message
+          : existingData?.message ?? true,
+    };
     const data = await Loginemail.findOneAndUpdate(
       { userId },
-      { $set: { loginemail, loginmessage } },
+      { $set: updateData },
       { new: true, upsert: true }
     );
 
@@ -60,8 +79,6 @@ exports.createContactmail = async (req, res) => {
   const userId = req.userID;
 
   try {
-    console.log("User ID from request:", userId);
-
     const emailMsg = await Loginemail.findOne({
       userId: new mongoose.Types.ObjectId(userId),
     });
@@ -82,7 +99,11 @@ exports.createContactmail = async (req, res) => {
       from: process.env.EMAIL,
       to: emailMsg.loginemail,
       subject: "Filta Form Fillup User Data",
-      text: `This User Filta Contact-Form submit:\n\nName: ${name}\nEmail: ${email}\nContact Number: ${number}\nMessage: ${message}`,
+      text: `This User Filta Contact-Form submit:\n\nName: ${
+        name || "-"
+      }\nEmail: ${email || "-"}\nContact Number: ${number || "-"}\nMessage: ${
+        message || "-"
+      }`,
     };
 
     // Send emails concurrently
