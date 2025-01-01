@@ -7,13 +7,13 @@ const teamSchema = new mongoose.Schema(
       required: true,
     },
     name: {
-      type: String,
+      type: [],
     },
     job_title: {
-      type: String,
+      type: [],
     },
     number: {
-      type: String,
+      type: [],
     },
   },
   {

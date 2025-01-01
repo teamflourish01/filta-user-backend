@@ -7,10 +7,10 @@ const spSchema = new mongoose.Schema(
       required: true,
     },
     text: {
-      type: String,
+      type: [],
     },
     digit: {
-      type: String,
+      type: [],
     },
   },
   {

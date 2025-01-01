@@ -20,23 +20,27 @@ const cardSchema = new mongoose.Schema(
     logoimg: { type: String },
 
     design: {
-        card_color: {
-          primary_color: { type: String, default: "#000000" },
-          secondary_color: { type: String, default: "#000000" },
-          neutral_color: { type: String, default: "#000000" },
-        },
-        font_style: {
-          font_family: { type: String, default: "popins" },
-          primary_text_color: { type: String, default: "#000000" },
-          secondary_text_color: { type: String, default: "#000000" },
-        },
-        theme_color: {
-          type: String,
-          default: "#000000",
-        },
+      layout: { type: String, default: "left" },
+      card_color: {
+        primary_color: { type: String, default: "#000000" },
+        secondary_color: { type: String, default: "#000000" },
+        neutral_color: { type: String, default: "#000000" },
+      },
+      font_style: {
+        font_family: { type: String, default: "popins" },
+        primary_text_color: { type: String, default: "#000000" },
+        secondary_text_color: { type: String, default: "#000000" },
+      },
+      card_background: {
+        flat_color: { type: String, default: "#000000" },
+        gradient_color1: { type: String, default: "#000000" },
+        gradient_color2: { type: String, default: "#000000" },
+      },
+      theme_color: {
+        type: String,
+        default: "#000000",
+      },
     },
-  
-
   },
   { timestamps: true }
 );
