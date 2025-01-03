@@ -29,11 +29,7 @@ const userSchema = new mongoose.Schema(
     cta:{type:mongoose.Schema.Types.ObjectId,ref:"CtaButton"},
     teamMember:{type:mongoose.Schema.Types.ObjectId, ref: "Teammember"},
     socialProof:{type:mongoose.Schema.Types.ObjectId,ref:"Social"}
-
-  
-
-
-
+,
     photos: [
       {
         type: mongoose.Schema.Types.ObjectId,

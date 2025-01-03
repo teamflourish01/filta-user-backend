@@ -22,9 +22,9 @@ const cardSchema = new mongoose.Schema(
     design: {
       layout: { type: String, default: "left" },
       card_color: {
-        primary_color: { type: String, default: "#000000" },
+        primary_color: { type: String, default: "#eff1f3" },
         secondary_color: { type: String, default: "#000000" },
-        neutral_color: { type: String, default: "#000000" },
+        neutral_color: { type: String, default: "#00000033" },
       },
       font_style: {
         font_family: { type: String, default: "popins" },
@@ -32,13 +32,13 @@ const cardSchema = new mongoose.Schema(
         secondary_text_color: { type: String, default: "#000000" },
       },
       card_background: {
-        flat_color: { type: String, default: "#000000" },
-        gradient_color1: { type: String, default: "#000000" },
-        gradient_color2: { type: String, default: "#000000" },
+        flat_color: { type: String, default: "#ffffff" },
+        gradient_color1: { type: String, default: "#ffffff" },
+        gradient_color2: { type: String, default: "#ffffff" },
       },
       theme_color: {
         type: String,
-        default: "#000000",
+        default: "#ffffff",
       },
     },
   },
