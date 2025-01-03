@@ -90,7 +90,6 @@ exports.getUserDetails = async (req, res) => {
 
       .populate("multimedia")
 
-
       .populate("voiceMessage")
       .populate("about")
       .populate("documents")
@@ -98,7 +97,7 @@ exports.getUserDetails = async (req, res) => {
 
       .populate("cta")
       .populate("teamMember")
-      .populate("socialProof");
+      .populate("socialProof")
 
       .populate("photos")
       
