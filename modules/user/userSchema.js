@@ -24,10 +24,13 @@ const userSchema = new mongoose.Schema(
     documents: [{ type: mongoose.Schema.Types.ObjectId, ref: "Document" }],
     myLeads: [{ type: mongoose.Schema.Types.ObjectId, ref: "Contactform" }],
 
+
     cta: { type: mongoose.Schema.Types.ObjectId, ref: "CtaButton" },
     teamMember: { type: mongoose.Schema.Types.ObjectId, ref: "Teammember" },
     socialProof: { type: mongoose.Schema.Types.ObjectId, ref: "Social" },
     productGallary: [{ type: mongoose.Schema.Types.ObjectId, ref: "Gallery" }],
+
+
 
     photos: [
       {
