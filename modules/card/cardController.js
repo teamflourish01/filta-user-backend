@@ -127,7 +127,7 @@ exports.editCard = async (req, res) => {
       profileimg,
       coverimg,
       logoimg,
-      style: profileStyle,      
+      // style: profileStyle,      
     };
     // Update the data in the database
     const updatedData = await Card.findOneAndUpdate({ userId }, updatedFields, {

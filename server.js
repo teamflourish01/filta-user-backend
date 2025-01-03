@@ -26,7 +26,12 @@ const contactFormRouter = require("./modules/contactForm/contact.routes");
 const {
   tsOffferRouter,
 } = require("./modules/timesensitive/timesensitive.routes");
+
+const qrcodeRouter = require("./modules/qrcode/qrcode.routes");
+const fontsRouter = require("./modules/customfonts/fonts.routes");
+
 const paymentRouter = require("./modules/payment/payment.routes");
+
 
 const app = express();
 
@@ -55,7 +60,12 @@ app.use("/voice", voiceRouter);
 app.use("/about", aboutRouter);
 app.use("/doc", docRouter);
 app.use("/email", contactFormRouter);
+
+app.use("/qr", qrcodeRouter);
+// app.use("/font", fontsRouter);
+
 app.use("/payment",paymentRouter);
+
 
 app.listen(process.env.PORT, async () => {
   console.log(`Server is Running on ${process.env.PORT} Port`);

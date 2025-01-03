@@ -100,10 +100,11 @@ exports.getUserDetails = async (req, res) => {
       .populate("socialProof")
 
       .populate("photos")
-      
-      .populate("address")
-      .populate("timeoffer");
 
+      .populate("address")
+      .populate("timeoffer")
+      .populate("qrcode")
+      .populate("productGallary");
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
