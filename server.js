@@ -31,6 +31,7 @@ const qrcodeRouter = require("./modules/qrcode/qrcode.routes");
 const fontsRouter = require("./modules/customfonts/fonts.routes");
 
 const paymentRouter = require("./modules/payment/payment.routes");
+const nfcPremiumRouter = require("./modules/NFCPremiumCard/premium.routes");
 
 
 const app = express();
@@ -65,7 +66,7 @@ app.use("/qr", qrcodeRouter);
 // app.use("/font", fontsRouter);
 
 app.use("/payment",paymentRouter);
-
+app.use("/nfcpremium",nfcPremiumRouter)
 
 app.listen(process.env.PORT, async () => {
   console.log(`Server is Running on ${process.env.PORT} Port`);

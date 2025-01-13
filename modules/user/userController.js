@@ -94,17 +94,16 @@ exports.getUserDetails = async (req, res) => {
       .populate("about")
       .populate("documents")
       .populate("myLeads")
-
       .populate("cta")
       .populate("teamMember")
       .populate("socialProof")
-
       .populate("photos")
-
       .populate("address")
       .populate("timeoffer")
       .populate("qrcode")
-      .populate("productGallary");
+      .populate("productGallary")
+      .populate("nfcStandard")
+      .populate("nfcPremium");
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });

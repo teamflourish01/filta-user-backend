@@ -15,7 +15,7 @@ const userSchema = new mongoose.Schema(
     planExpired: { type: String },
     notifications: { type: Array },
     socialLinks: [{ type: mongoose.Schema.Types.ObjectId, ref: "SocialLink" }],
-
+    premium:{type:Boolean,default: false},
     voiceMessage: [
       { type: mongoose.Schema.Types.ObjectId, ref: "VoiceMessage" },
     ],
@@ -23,15 +23,11 @@ const userSchema = new mongoose.Schema(
     address: { type: mongoose.Schema.Types.ObjectId, ref: "Address" },
     documents: [{ type: mongoose.Schema.Types.ObjectId, ref: "Document" }],
     myLeads: [{ type: mongoose.Schema.Types.ObjectId, ref: "Contactform" }],
-
-
     cta: { type: mongoose.Schema.Types.ObjectId, ref: "CtaButton" },
     teamMember: { type: mongoose.Schema.Types.ObjectId, ref: "Teammember" },
     socialProof: { type: mongoose.Schema.Types.ObjectId, ref: "Social" },
     productGallary: [{ type: mongoose.Schema.Types.ObjectId, ref: "Gallery" }],
-
-
-
+    nfcStandard:{type: mongoose.Schema.Types.ObjectId, ref:"NfcStandard"},
     photos: [
       {
         type: mongoose.Schema.Types.ObjectId,
@@ -54,6 +50,7 @@ const userSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Qrcode",
     },
+    nfcPremium:{type:mongoose.Schema.Types.ObjectId,ref:"NfcPremium"}
   },
   {
     timestamps: true,

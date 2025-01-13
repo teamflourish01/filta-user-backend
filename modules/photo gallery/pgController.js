@@ -57,6 +57,7 @@ exports.editGallery = async (req, res) => {
       msg: "Gallery updated successfully",
       data: updatedGallery,
     });
+
   } catch (error) {
     res.status(500).json({
       error: "Failed to update gallery",
