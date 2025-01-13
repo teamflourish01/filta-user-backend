@@ -102,8 +102,12 @@ exports.getUserDetails = async (req, res) => {
       .populate("timeoffer")
       .populate("qrcode")
       .populate("productGallary")
+
+      .populate("automated");
+
       .populate("nfcStandard")
       .populate("nfcPremium");
+
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });

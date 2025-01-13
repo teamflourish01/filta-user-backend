@@ -6,9 +6,10 @@ const autoSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-    text:{
-        type:String
-    }
+    text: {
+      type: String,
+      default: "",
+    },
   },
   {
     versionKey: false,
@@ -16,6 +17,6 @@ const autoSchema = new mongoose.Schema(
   }
 );
 
-const AutoModel=new mongoose.model("Automated",autoSchema)
+const AutoModel = new mongoose.model("Automated", autoSchema);
 
-module.exports=AutoModel
+module.exports = AutoModel;

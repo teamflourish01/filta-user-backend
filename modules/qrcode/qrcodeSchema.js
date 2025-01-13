@@ -8,6 +8,7 @@ const qrSchema = new mongoose.Schema(
     },
     qrcolor: { type: String, default: "#000000" },
     qrimage: { type: String, default: "" },
+    qrpng: { type: String, default: "" },
   },
   {
     versionKey: false,

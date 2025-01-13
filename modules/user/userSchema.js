@@ -50,7 +50,11 @@ const userSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Qrcode",
     },
+
+    automated: { type: mongoose.Schema.Types.ObjectId, ref: "Automated" },
+
     nfcPremium:{type:mongoose.Schema.Types.ObjectId,ref:"NfcPremium"}
+
   },
   {
     timestamps: true,
