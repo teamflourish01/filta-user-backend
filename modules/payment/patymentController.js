@@ -1,6 +1,7 @@
 const Razorpay = require("razorpay");
 const crypto = require("crypto");
 const Payment = require("./paymentSchema");
+const User = require("../user/userSchema");
 let instance = new Razorpay({
   key_id: "rzp_test_rMaoQVF8tWJMAb",
   key_secret: "1SXjhBrnlcTlmRAyaonEKGlO",
@@ -24,7 +25,7 @@ exports.createOrder = async (req, res) => {
 exports.verifyPayment = async (req, res) => {
   console.log(req.body, "body");
 
-  const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
+  const { razorpay_order_id, razorpay_payment_id, razorpay_signature,userId } =
     req.body;
   try {
     const generated_signature = crypto
@@ -47,7 +48,9 @@ exports.verifyPayment = async (req, res) => {
         razorpay_signature,
       });
       await data.save();
+      let upDatedUser=await User.findByIdAndUpdate(userId,{premium:true},{new:true})
       res.status(200).send({ msg: "Vetrified", data });
+
       console.log(data);
     } else {
       res.status(400).send("Payment Verification Failed");
