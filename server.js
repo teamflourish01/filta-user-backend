@@ -8,7 +8,7 @@ const linkRouter = require("./modules/socialLink/link.routes");
 require("dotenv").config();
 const { planExpiry } = require("./notifications/planExpiry");
 const { expiryDate } = require("./notifications/expiryDate");
-
+const path = require("path");
 const multiMediaRouter = require("./modules/multimedia/multimedia.routes");
 const ctaRouter = require("./modules/ctaButton/cta.routes");
 const teamRouter = require("./modules/teammember/team.routes");
@@ -38,6 +38,7 @@ const app = express();
 app.use(cors({ origin: true }));
 app.use(express.json());
 app.use(express.static("uploads"));
+app.use("/font", express.static(path.join(__dirname, "fonts")));
 
 //router
 app.use("/user", userRouter);
@@ -62,7 +63,7 @@ app.use("/doc", docRouter);
 app.use("/email", contactFormRouter);
 
 app.use("/qr", qrcodeRouter);
-// app.use("/font", fontsRouter);
+app.use("/font", fontsRouter);
 
 app.use("/payment",paymentRouter);
 

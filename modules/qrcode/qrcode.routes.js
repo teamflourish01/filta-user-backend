@@ -21,7 +21,7 @@ const upload = multer({
 
 qrcodeRouter.post(
   "/add",
-  upload.single("qrimage"),
+  upload.fields([{ name: "qrimage" }, { name: "qrpng" }]),
   authMiddleware,
   qrController.addQrcode
 );

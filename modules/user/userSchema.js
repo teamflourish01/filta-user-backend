@@ -54,6 +54,7 @@ const userSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Qrcode",
     },
+    automated: { type: mongoose.Schema.Types.ObjectId, ref: "Automated" },
   },
   {
     timestamps: true,

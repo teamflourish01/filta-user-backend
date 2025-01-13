@@ -27,7 +27,7 @@ const cardSchema = new mongoose.Schema(
         neutral_color: { type: String, default: "#00000033" },
       },
       font_style: {
-        font_family: { type: String, default: "popins" },
+        font_family: { type: [String], default: ["popins"] },
         primary_text_color: { type: String, default: "#000000" },
         secondary_text_color: { type: String, default: "#000000" },
       },
