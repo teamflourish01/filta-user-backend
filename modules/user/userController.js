@@ -2,9 +2,23 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("./userSchema");
 const { expiryDate } = require("../../notifications/expiryDate");
+const crypto = require("crypto");
+const nodemailer = require("nodemailer");
+const otpMap = new Map();
+
+let transporter = nodemailer.createTransport({
+  host: "smtp.gmail.com",
+  port: 587,
+  auth: {
+    user: process.env.EMAIL,
+    pass: process.env.PASSWORD,
+  },
+  pool: true,
+  rateLimit: 5,
+});
 
 exports.addUser = async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, otp } = req.body;
 
   if (!email || !password) {
     return res.status(400).json({ message: "All fields are required" });
@@ -14,31 +28,66 @@ exports.addUser = async (req, res) => {
   if (userExists) {
     return res.status(400).json({ message: "User already exists" });
   }
+  if (!otp) {
+    // Step 1: Generate and send OTP
+    const generatedOtp = crypto.randomInt(100000, 999999).toString();
+    otpMap.set(email, generatedOtp); // Store OTP temporarily
+    const mailOptions = {
+      from: process.env.EMAIL,
+      to: email,
+      subject: "Verify your email",
+      html: `
+      <div style="background-color: #f7f7f7; padding: 20px; font-family: Arial, sans-serif;">
+      <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 8px; padding: 20px; text-align: center; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+      <h2 style="color: #333;">Filta.in</h2>
+      <div style="border-top: 2px solid #eee; margin: 10px 0;"></div>
+          <p style="font-size: 16px; color: #555;">
+            <strong>OTP:</strong> ${generatedOtp} <br>
+          </p>
+          <div style="border-top: 2px solid #eee; margin: 20px 0;"></div>
+      </div>
+      </div>
+      `,
+    };
+    try {
+      await transporter.sendMail(mailOptions);
+      return res.status(200).json({
+        message: "OTP sent to your email. Please verify.",
+      });
+    } catch (error) {
+      console.error("Error sending OTP:", error);
+      return res.status(500).json({ message: "Failed to send OTP" });
+    }
+  } else {
+    const storedOtp = otpMap.get(email);
+    if (storedOtp !== otp) {
+      return res.status(400).json({ message: "Invalid OTP" });
+    }
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-  const hashedPassword = await bcrypt.hash(password, 10);
+    try {
+      const newUser = new User({
+        email,
+        password: hashedPassword,
+      });
 
-  try {
-    const newUser = new User({
-      email,
-      password: hashedPassword,
-    });
+      await newUser.save();
 
-    await newUser.save();
+      const token = jwt.sign(
+        { userId: newUser._id, email: newUser.email },
+        process.env.JWT_SECRET_KEY,
+        { expiresIn: "30d" }
+      );
 
-    const token = jwt.sign(
-      { userId: newUser._id, email: newUser.email },
-      process.env.JWT_SECRET_KEY,
-      { expiresIn: "30d" }
-    );
-
-    res.status(201).json({
-      message: "User created successfully",
-      data: newUser,
-      token,
-    });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Error creating user" });
+      res.status(201).json({
+        message: "User created successfully",
+        data: newUser,
+        token,
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Error creating user" });
+    }
   }
 };
 
@@ -103,11 +152,10 @@ exports.getUserDetails = async (req, res) => {
       .populate("qrcode")
       .populate("productGallary")
 
-      .populate("automated");
+      .populate("automated")
 
       .populate("nfcStandard")
       .populate("nfcPremium");
-
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });

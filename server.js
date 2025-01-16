@@ -32,6 +32,8 @@ const fontsRouter = require("./modules/customfonts/fonts.routes");
 
 const paymentRouter = require("./modules/payment/payment.routes");
 const nfcPremiumRouter = require("./modules/NFCPremiumCard/premium.routes");
+const requestFeatureRouter = require("./modules/requestFeature/feature.routes");
+const feedbackRouter = require("./modules/feedback/feedback.routes");
 
 
 const app = express();
@@ -62,10 +64,10 @@ app.use("/voice", voiceRouter);
 app.use("/about", aboutRouter);
 app.use("/doc", docRouter);
 app.use("/email", contactFormRouter);
-
+app.use("/feature",requestFeatureRouter)
 app.use("/qr", qrcodeRouter);
 app.use("/font", fontsRouter);
-
+app.use("/feedback",feedbackRouter)
 app.use("/payment",paymentRouter);
 app.use("/nfcpremium",nfcPremiumRouter)
 
