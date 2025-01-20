@@ -8,11 +8,22 @@ const userRouter = express.Router();
 
 userRouter
   .post("/signup", userController.addUser)
+
   .post("/signin",expiryMiddleware  ,userController.loginUser)
 
-  .get("/loginuser", authMiddleware,expiryMiddleware ,userController.getloginUser)
+
 
   .get("/userdetails", authMiddleware, userController.getUserDetails)
+
+
+  
+  .post("/googlesignup",userController.GoogleSignup)
+  .post("/googlesignin",userController.googleLogin)
+  .post("/forgot",userController.forgatPasswordMail)
+  .get("/loginuser", authMiddleware,expiryMiddleware ,userController.getloginUser)
+
+  
+  .get("/:username",userController.getDataByuserName)
 
   .patch("/edituser", authMiddleware, userController.editUser);
 
