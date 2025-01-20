@@ -14,13 +14,14 @@ exports.addPremium = async (req, res) => {
     // });
 
     let currentData=await NfcPremium.findOne({userId})
-
+    // console.log(req.files.logo[0]?.filename, "req.files?.logo?.filename");
+    
 
     let updatedData={
         ...req.body,
         userId,
-        logo: req.files?.logo?.filename || currentData?.logo  ||"" ,
-        cardTheme: req.files?.theme?.filename || currentData?.theme || "",
+        logo:(req.files?.logo && req.files?.logo[0]?.filename) || currentData?.logo  ||"" ,
+        // cardTheme: (req.files?.theme&& req.files?.theme[0]?.filename) || currentData?.theme || "",
     }
 
     let data=await NfcPremium.findOneAndUpdate({userId},updatedData,{new:true,upsert:true})
@@ -37,3 +38,21 @@ exports.addPremium = async (req, res) => {
     console.log(error);
   }
 };
+
+exports.deleteLogoPremium=async(req,res)=>{
+  let userId=req.userID;
+
+  try {
+    let deletedData=await NfcPremium.findOneAndUpdate({userId},{...req.body},{new:true})
+    res.status(200).send({
+      data:deletedData,
+      msg:"Data Deleted SuccessFull "
+    })
+  } catch (error) {
+    res.status(400).send({
+      msg:error.message,
+      error
+    })
+  }
+}
+

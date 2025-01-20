@@ -103,10 +103,11 @@ exports.getUserDetails = async (req, res) => {
       .populate("qrcode")
       .populate("productGallary")
 
-      .populate("automated");
+      .populate("automated")
 
       .populate("nfcStandard")
-      .populate("nfcPremium");
+      .populate("nfcPremium")
+      .populate("shuffle");
 
 
     if (!user) {
@@ -115,7 +116,7 @@ exports.getUserDetails = async (req, res) => {
 
     res.status(200).json({
       message: "User content fetched successfully",
-      user,
+      user:user,
     });
   } catch (error) {
     console.error(error);
@@ -125,7 +126,7 @@ exports.getUserDetails = async (req, res) => {
 exports.getloginUser = async (req, res) => {
   try {
     const userData = req.user;
-    return res.status(200).json({ userData });
+    return res.status(200).json({ userData ,});
   } catch (error) {
     res.status(500).json("userData not Get", error);
   }
@@ -135,14 +136,16 @@ exports.editUser = async (req, res) => {
   const { email, password } = req.body;
   const userId = req.userID;
 
-  if (!email && !password) {
-    return res
-      .status(400)
-      .json({ message: "Please provide email or password to update" });
-  }
+  // if (!email && !password) {
+  //   return res
+  //     .status(400)
+  //     .json({ message: "Please provide email or password to update" });
+  // }
+  console.log(req.body);
+  
 
   try {
-    const updates = {};
+    const updates = {...req.body};
 
     if (email) {
       const emailExists = await User.findOne({ email });

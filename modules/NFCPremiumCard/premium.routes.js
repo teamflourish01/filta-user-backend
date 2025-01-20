@@ -19,9 +19,14 @@ const upload = multer({
 
 nfcPremiumRouter.post(
   "/add",
-  upload.fields([{ name: "logo" }, { name: "theme" }]),
+  upload.fields([{ name: "logo" }]),
   authMiddleware,
   premiumController.addPremium
+);
+nfcPremiumRouter.patch(
+  "/deleteimage",
+  authMiddleware,
+  premiumController.deleteLogoPremium
 );
 
 module.exports = nfcPremiumRouter;
