@@ -55,7 +55,11 @@ const userSchema = new mongoose.Schema(
 
     automated: { type: mongoose.Schema.Types.ObjectId, ref: "Automated" },
 
-    nfcPremium: { type: mongoose.Schema.Types.ObjectId, ref: "NfcPremium" },
+
+    nfcPremium:{type:mongoose.Schema.Types.ObjectId,ref:"NfcPremium"},
+    shuffle:{type:mongoose.Schema.Types.ObjectId,ref:"Shuffle"}
+
+
   },
   {
     timestamps: true,

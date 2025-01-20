@@ -32,8 +32,12 @@ const fontsRouter = require("./modules/customfonts/fonts.routes");
 
 const paymentRouter = require("./modules/payment/payment.routes");
 const nfcPremiumRouter = require("./modules/NFCPremiumCard/premium.routes");
+
+const shuffleRouter = require("./modules/shuffle/shuffle.routes");
+
 const requestFeatureRouter = require("./modules/requestFeature/feature.routes");
 const feedbackRouter = require("./modules/feedback/feedback.routes");
+
 
 
 const app = express();
@@ -70,6 +74,7 @@ app.use("/font", fontsRouter);
 app.use("/feedback",feedbackRouter)
 app.use("/payment",paymentRouter);
 app.use("/nfcpremium",nfcPremiumRouter)
+app.use("/shuffle",shuffleRouter)
 
 app.listen(process.env.PORT, async () => {
   console.log(`Server is Running on ${process.env.PORT} Port`);

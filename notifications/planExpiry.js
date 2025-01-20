@@ -12,7 +12,7 @@ const planExpiry = (x) => {
       if (
         y.getDate().toLocaleString() == currentDate.getDate().toLocaleString()
       ) {
-        return "Your Plan Is Expired Today";
+        return `Your Plan Is Expired ${currentDate}`;
       } else {
         return "Your Plan Is Expiring In This Month";
       }

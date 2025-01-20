@@ -1,20 +1,27 @@
 const User = require("../modules/user/userSchema");
 const { expiryDate } = require("../notifications/expiryDate");
+const { planExpiry } = require("../notifications/planExpiry");
 
 const expiryMiddleware=async(req,res,next)=>{
     try {
-        if(req.user.planExpired){
-            let expired = expiryDate(req.user.planExpired);
+console.log(req.body,"body login");
+        let user=await User.findOne({email:req.body.email})
+        if(user?.planExpired){
+            let expired = expiryDate(user.planExpired);
             console.log(expired,"expired");
-            
-            let x=req.user.notifications.includes(expired)
+            if(expired=="Your Plan Is Expired"){
+              return  res.status(400).send({
+                    message:"Plan Has been Expired"
+                })
+            }
+            let x=user.notifications.includes(expired)
             console.log("includes",x);
             
             if(expired && !x){
-                let data=await User.findByIdAndUpdate(req.user._id,{notifications:[...req.user.notifications,expired]},{new:true})
-                req.user=data
+                let data=await User.findByIdAndUpdate(user._id,{notifications:[...user.notifications,expired]},{new:true})
             }
         }
+
         next()
     } catch (error) {
         console.log(error);
