@@ -4,24 +4,14 @@ const path = require("path");
 
 exports.addPremium = async (req, res) => {
   try {
-    let userId = req.userID;
+    let userId = req.userID;    
 
-    // let data = await new NfcPremium({
-    //   ...req.body,
-    //   userId,
-    //   logo: req.files?.logo[0]?.filename,
-    //   cardTheme: req.files?.theme[0]?.filename,
-    // });
-
-    let currentData=await NfcPremium.findOne({userId})
-    // console.log(req.files.logo[0]?.filename, "req.files?.logo?.filename");
-    
+    let currentData=await NfcPremium.findOne({userId})   
 
     let updatedData={
         ...req.body,
         userId,
-        logo:(req.files?.logo && req.files?.logo[0]?.filename) || currentData?.logo  ||"" ,
-        // cardTheme: (req.files?.theme&& req.files?.theme[0]?.filename) || currentData?.theme || "",
+        logo:(req.files?.logo && req.files?.logo[0]?.filename) || currentData?.logo  ||"" ,        
     }
 
     let data=await NfcPremium.findOneAndUpdate({userId},updatedData,{new:true,upsert:true})

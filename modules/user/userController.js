@@ -316,7 +316,8 @@ exports.getDataByuserName = async (req, res) => {
       .populate("productGallary")
       .populate("automated")
       .populate("nfcStandard")
-      .populate("nfcPremium");
+      .populate("nfcPremium")
+      .populate("shuffle");
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
