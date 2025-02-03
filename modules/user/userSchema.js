@@ -57,8 +57,8 @@ const userSchema = new mongoose.Schema(
 
 
     nfcPremium:{type:mongoose.Schema.Types.ObjectId,ref:"NfcPremium"},
-    shuffle:{type:mongoose.Schema.Types.ObjectId,ref:"Shuffle"}
-
+    shuffle:{type:mongoose.Schema.Types.ObjectId,ref:"Shuffle"},
+    contactformemail: { type: mongoose.Schema.Types.ObjectId, ref: "Loginemail" },
 
   },
   {

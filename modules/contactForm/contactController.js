@@ -10,6 +10,12 @@ exports.addEmailMessage = async (req, res) => {
   const { loginemail, loginmessage, name, email, number, message } = req.body;
   const userId = req.userID;
   try {
+    const user = await User.findById(userId);
+    if (!user || !user.premium) {
+      return res.status(403).json({
+        message: "Please upgrade to the Premium plan to access this feature.",
+      });
+    }
     const existingData = await Loginemail.findOne({ userId });
     const updateData = {
       loginemail,
@@ -34,7 +40,7 @@ exports.addEmailMessage = async (req, res) => {
       { $set: updateData },
       { new: true, upsert: true }
     );
-
+    await User.findByIdAndUpdate(userId, { contactformemail: data._id });
     res.status(201).json({
       message: data
         ? "Contact Form updated successfully"
@@ -132,7 +138,61 @@ exports.createContactmail = async (req, res) => {
     res.status(500).send("Error sending emails: " + error.toString());
   }
 };
+exports.emailSharcard = async (req, res) => {
+  const { name, email, number, message, userId } = req.body;
 
+  try {
+    const emailMsg = await Loginemail.findOne({ userId });
+    if (!emailMsg) {
+      console.error(`No login email found for userId: ${userId}`);
+      return res.status(404).send("No login email found for this user.");
+    }
+
+    const userMailOptions = {
+      from: process.env.EMAIL,
+      to: email,
+      subject: "FILTA",
+      text: emailMsg.loginmessage,
+      html: `<p>${emailMsg.loginmessage}</p>`,
+    };
+
+    const clientMailOptions = {
+      from: process.env.EMAIL,
+      to: emailMsg.loginemail,
+      subject: "Filta Form Fillup User Data",
+      text: `This User Filta Contact-Form submit:\n\nName: ${
+        name || "-"
+      }\nEmail: ${email || "-"}\nContact Number: ${number || "-"}\nMessage: ${
+        message || "-"
+      }`,
+    };
+
+    // Send emails concurrently
+    await Promise.all([
+      transporter.sendMail(userMailOptions),
+      transporter.sendMail(clientMailOptions),
+    ]);
+
+    //save Data to DB
+    const newEmail = new Contactform({
+      userId,
+      name,
+      email,
+      number,
+      message,
+    });
+    await newEmail.save();
+    await User.findByIdAndUpdate(userId, {
+      $push: { myLeads: newEmail._id },
+    });
+    res.status(201).json({
+      message: "Email Sent successfully.",
+      data: newEmail,
+    });
+  } catch (error) {
+    res.status(500).send("Error sending emails: " + error.toString());
+  }
+};
 exports.getEmail = async (req, res) => {
   let { page, search } = req.query;
   let query = {};
@@ -174,5 +234,20 @@ exports.deleteEmail = async (req, res) => {
       error,
       msg: error.message,
     });
+  }
+};
+
+//share card loginemail-msg data api without token
+exports.getEmMsgShare = async (req, res) => {
+  try {
+    const userID = req.userID;
+
+    const data = await Loginemail.find({ userId: userID });
+    res.status(200).json({
+      message: "Login Email-Message fetched successfully",
+      data,
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };

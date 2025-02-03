@@ -5,6 +5,12 @@ const TeamModel = require("./teamSchema");
 exports.addTeam = async (req, res) => {
   try {
     let userId = req.userID;
+    const user = await User.findById(userId);
+    if (!user || !user.premium) {
+      return res.status(403).json({
+        msg: "Please upgrade to the Premium plan to access this feature.",
+      });
+    }
     let data = await TeamModel.findOneAndUpdate(
       { userId },
       { ...req.body, userId },

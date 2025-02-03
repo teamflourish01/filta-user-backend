@@ -19,11 +19,18 @@ const upload = multer({
   storage: storage,
 });
 
-qrcodeRouter.post(
-  "/add",
-  upload.fields([{ name: "qrimage" }, { name: "qrpng" }]),
-  authMiddleware,
-  qrController.addQrcode
-);
+qrcodeRouter
+  .post(
+    "/add",
+    upload.fields([{ name: "qrimage" }, { name: "qrpng" }]),
+    authMiddleware,
+    qrController.addQrcode
+  )
+  .post(
+    "/addauto",
+    upload.fields([{ name: "qrpng" }]),
+    authMiddleware,
+    qrController.addAutoQrcode
+  );
 
 module.exports = qrcodeRouter;

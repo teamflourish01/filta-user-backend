@@ -216,7 +216,8 @@ exports.getUserDetails = async (req, res) => {
 
       .populate("nfcStandard")
       .populate("nfcPremium")
-      .populate("shuffle");
+      .populate("shuffle")
+      .populate("contactformemail");
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
@@ -317,7 +318,8 @@ exports.getDataByuserName = async (req, res) => {
       .populate("automated")
       .populate("nfcStandard")
       .populate("nfcPremium")
-      .populate("shuffle");
+      .populate("shuffle")
+      .populate("contactformemail");
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });

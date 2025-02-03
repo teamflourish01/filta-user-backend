@@ -46,9 +46,9 @@ exports.editGallery = async (req, res) => {
     gallery.button_link = req.body.button_link || gallery.button_link;
     gallery.description = req.body.description || gallery.description;
 
-    if (req.file) {
-      gallery.image = req.file.filename;
-    }
+    // if (req.file) {
+    //   gallery.image = req.file.filename;
+    // }
 
     // Save the updated gallery
     const updatedGallery = await gallery.save();
