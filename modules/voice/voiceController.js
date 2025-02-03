@@ -5,6 +5,12 @@ const SocialLink = require("./voiceSchema");
 exports.addVoice = async (req, res) => {
   const userId = req.userID;
   try {
+    const user = await User.findById(userId);
+    if (!user || !user.premium) {
+      return res.status(403).json({
+        message: "Please upgrade to the Premium plan to access this feature.",
+      });
+    }
     if (!req.file) {
       return res.status(400).json({ message: "No voice file uploaded." });
     }

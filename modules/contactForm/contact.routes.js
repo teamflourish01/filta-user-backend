@@ -8,6 +8,7 @@ contactFormRouter
   .post("/add", authMiddleware, contactformController.addEmailMessage)
   .get("/gatemailmsg", authMiddleware, contactformController.getEmailMessage)
   .post("/send-email", authMiddleware, contactformController.createContactmail)
+  .post("/send-shareemail", contactformController.emailSharcard)
   .get("/email", contactformController.getEmail)
   .delete("/email/delete/:id", contactformController.deleteEmail);
 
